@@ -1,12 +1,14 @@
 import { Paper, Typography, Button, Grid } from "@mui/material";
 import sx from "mui-sx";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useOutletContext } from "react-router-dom";
 
 import { sxContainer, sxCard, sxParagraph, sxPrice } from "./sxStyle";
 import useProducts from "../useProducts";
 
 export default function BestSelling() {
   const [bestSellingProducts] = useProducts();
+  const handleAmount = useOutletContext();
   return (
     <Grid container spacing={3} justifyContent="center" sx={sx(sxContainer)}>
       {bestSellingProducts.map((item) => {
@@ -29,6 +31,7 @@ export default function BestSelling() {
                   sx={{ mt: 2, mx: 0, justifyContent: "flex-end" }}
                   variant="contained"
                   endIcon={<ShoppingCartIcon />}
+                  onClick={() => handleAmount()}
                 >
                   Add to Cart
                 </Button>

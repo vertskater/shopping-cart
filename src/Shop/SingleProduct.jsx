@@ -5,6 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import sx from "mui-sx";
 import { Link } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 import { sxItem, sxContainer } from "./sxShopStyle";
 import Header from "../Header";
@@ -13,6 +14,7 @@ import Footer from "../Footer";
 export default function SingleProduct() {
   const { id } = useParams();
   const [, allProducts] = useProducts();
+  const handleAmount = useOutletContext();
   const headerData = {
     height: 30,
     bgImg: "background.jpg",
@@ -64,7 +66,11 @@ export default function SingleProduct() {
                   >
                     € {product.price}
                   </Typography>
-                  <Button variant="contained" endIcon={<ShoppingCartIcon />}>
+                  <Button
+                    variant="contained"
+                    endIcon={<ShoppingCartIcon />}
+                    onClick={() => handleAmount()}
+                  >
                     Add to shopping cart
                   </Button>
                   <div

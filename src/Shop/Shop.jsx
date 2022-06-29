@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import sx from "mui-sx";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 import useProducts from "../useProducts";
 import Header from "../Header";
@@ -21,6 +21,8 @@ import { useState } from "react";
 export default function Shop() {
   const [, allProducts] = useProducts();
   const [filter, setFilter] = useState("");
+  const handleAmount = useOutletContext();
+
   const link = "https://github.com/vertskater/shopping-cart";
   const headerData = {
     height: 40,
@@ -28,6 +30,7 @@ export default function Shop() {
     headerText: "Welcome to Cool-Store",
     haveBtn: false,
   };
+
   return (
     <>
       <Header headerData={headerData} />
@@ -92,6 +95,7 @@ export default function Shop() {
                         sx={{ mt: 2, mx: 0, justifyContent: "flex-end" }}
                         variant="contained"
                         endIcon={<ShoppingCartIcon />}
+                        onClick={() => handleAmount()}
                       >
                         Add to Cart
                       </Button>

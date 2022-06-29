@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Box,
@@ -13,13 +13,17 @@ import {
   Toolbar,
   Typography,
   Button,
+  Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, Outlet } from "react-router-dom";
 
 import { sxLink } from "./sxNavStyle";
+import { Amount } from "../Shop/CartAmount";
 
-export default function NavMenu({ window }) {
+export default function NavMenu({ window, handleAmount }) {
+  const amount = useContext(Amount);
   const drawerWidth = 240;
   const navItems = ["Home", "Shop"];
   const linkTargets = {
@@ -98,6 +102,9 @@ export default function NavMenu({ window }) {
                   </Link>
                 </Button>
               ))}
+              <Badge badgeContent={amount} color="error">
+                <ShoppingCartIcon />
+              </Badge>
             </Box>
           </Toolbar>
         </AppBar>
@@ -123,7 +130,7 @@ export default function NavMenu({ window }) {
           </Drawer>
         </Box>
       </Box>
-      <Outlet />
+      <Outlet context={handleAmount} />
     </>
   );
 }
