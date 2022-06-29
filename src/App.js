@@ -1,10 +1,10 @@
-import Home from "./Homepage/Home";
+import NavMenu from "./Nav/NavMenu";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <>
+      <NavMenu />
+    </>
   );
 }
 
