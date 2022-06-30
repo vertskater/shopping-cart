@@ -17,7 +17,7 @@ export default function Footer({ link }) {
         }}
       >
         <CopyrightIcon />{" "}
-        <a href={link} target="_blank">
+        <a href={link} target="_blank" rel="noreferrer">
           Christoph Mitterwallner
         </a>{" "}
         | A Project from theodinproject.com

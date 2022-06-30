@@ -14,7 +14,7 @@ import Footer from "../Footer";
 export default function SingleProduct() {
   const { id } = useParams();
   const [, allProducts] = useProducts();
-  const handleAmount = useOutletContext();
+  const [handleAmount] = useOutletContext();
   const headerData = {
     height: 30,
     bgImg: "background.jpg",

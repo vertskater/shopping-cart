@@ -21,8 +21,7 @@ import { useState } from "react";
 export default function Shop() {
   const [, allProducts] = useProducts();
   const [filter, setFilter] = useState("");
-  const handleAmount = useOutletContext();
-
+  const [handleAmount, addProduct] = useOutletContext();
   const link = "https://github.com/vertskater/shopping-cart";
   const headerData = {
     height: 40,
@@ -95,7 +94,10 @@ export default function Shop() {
                         sx={{ mt: 2, mx: 0, justifyContent: "flex-end" }}
                         variant="contained"
                         endIcon={<ShoppingCartIcon />}
-                        onClick={() => handleAmount()}
+                        onClick={() => {
+                          handleAmount();
+                          addProduct(item);
+                        }}
                       >
                         Add to Cart
                       </Button>

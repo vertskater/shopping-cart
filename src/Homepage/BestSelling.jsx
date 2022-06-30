@@ -8,7 +8,7 @@ import useProducts from "../useProducts";
 
 export default function BestSelling() {
   const [bestSellingProducts] = useProducts();
-  const handleAmount = useOutletContext();
+  const [handleAmount, addProduct] = useOutletContext();
   return (
     <Grid container spacing={3} justifyContent="center" sx={sx(sxContainer)}>
       {bestSellingProducts.map((item) => {
@@ -31,7 +31,10 @@ export default function BestSelling() {
                   sx={{ mt: 2, mx: 0, justifyContent: "flex-end" }}
                   variant="contained"
                   endIcon={<ShoppingCartIcon />}
-                  onClick={() => handleAmount()}
+                  onClick={() => {
+                    handleAmount();
+                    addProduct(item);
+                  }}
                 >
                   Add to Cart
                 </Button>

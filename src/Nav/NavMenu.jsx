@@ -21,8 +21,14 @@ import { Link, Outlet } from "react-router-dom";
 
 import { sxLink } from "./sxNavStyle";
 import { Amount } from "../Shop/CartAmount";
+import ShoppingCart from "../Shop/ShoppingCart";
 
-export default function NavMenu({ window, handleAmount }) {
+export default function NavMenu({
+  window,
+  handleAmount,
+  addProduct,
+  cartContent,
+}) {
   const amount = useContext(Amount);
   const drawerWidth = 240;
   const navItems = ["Home", "Shop"];
@@ -35,8 +41,17 @@ export default function NavMenu({ window, handleAmount }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const drawer = (
+  const [cartOpen, setCartOpen] = useState(false);
+  const toggleCart = () => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setCartOpen(!cartOpen);
+  };
+  const mobileMenu = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         Cool-Store
@@ -94,7 +109,12 @@ export default function NavMenu({ window, handleAmount }) {
                 The Cool-Store
               </Link>
             </Typography>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "block" },
+                a: { fontSize: "1.2em" },
+              }}
+            >
               {navItems.map((item) => (
                 <Button key={item} sx={{ color: "#fff" }}>
                   <Link to={linkTargets[item]} style={sxLink}>
@@ -102,9 +122,30 @@ export default function NavMenu({ window, handleAmount }) {
                   </Link>
                 </Button>
               ))}
-              <Badge badgeContent={amount} color="error">
-                <ShoppingCartIcon />
-              </Badge>
+              {amount !== 0 && (
+                <Badge badgeContent={amount} color="error">
+                  <Button
+                    onClick={toggleCart()}
+                    sx={{ backgroundColor: "#d3d3d3" }}
+                  >
+                    {" "}
+                    <ShoppingCartIcon />
+                    <Drawer
+                      anchor="right"
+                      open={cartOpen}
+                      onClose={toggleCart()}
+                      sx={{
+                        "& .MuiDrawer-paper": {
+                          boxSizing: "border-box",
+                          width: "70%",
+                        },
+                      }}
+                    >
+                      <ShoppingCart products={cartContent} />
+                    </Drawer>
+                  </Button>
+                </Badge>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
@@ -126,11 +167,11 @@ export default function NavMenu({ window, handleAmount }) {
               },
             }}
           >
-            {drawer}
+            {mobileMenu}
           </Drawer>
         </Box>
       </Box>
-      <Outlet context={handleAmount} />
+      <Outlet context={[handleAmount, addProduct]} />
     </>
   );
 }
