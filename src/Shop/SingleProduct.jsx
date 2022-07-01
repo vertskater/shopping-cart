@@ -14,7 +14,7 @@ import Footer from "../Footer";
 export default function SingleProduct() {
   const { id } = useParams();
   const [, allProducts] = useProducts();
-  const [handleAmount] = useOutletContext();
+  const [handleAmount, addProduct] = useOutletContext();
   const headerData = {
     height: 30,
     bgImg: "background.jpg",
@@ -69,7 +69,10 @@ export default function SingleProduct() {
                   <Button
                     variant="contained"
                     endIcon={<ShoppingCartIcon />}
-                    onClick={() => handleAmount()}
+                    onClick={() => {
+                      handleAmount();
+                      addProduct(product);
+                    }}
                   >
                     Add to shopping cart
                   </Button>

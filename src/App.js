@@ -12,6 +12,11 @@ function App() {
   const addProduct = (product) => {
     setCartContent([...cartContent, product]);
   };
+  const deleteProduct = (product) => {
+    const newList = cartContent.filter((item) => item.id !== product.id);
+    setCartContent(newList);
+    setAmount(amount - 1);
+  };
   return (
     <>
       <Amount.Provider value={amount}>
@@ -19,6 +24,7 @@ function App() {
           handleAmount={handleAmount}
           addProduct={addProduct}
           cartContent={cartContent}
+          deleteProduct={deleteProduct}
         />
       </Amount.Provider>
     </>

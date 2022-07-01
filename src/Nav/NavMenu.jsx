@@ -18,16 +18,19 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, Outlet } from "react-router-dom";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import { sxLink } from "./sxNavStyle";
 import { Amount } from "../Shop/CartAmount";
 import ShoppingCart from "../Shop/ShoppingCart";
+import MobileMenu from "./MobileMenu";
 
 export default function NavMenu({
   window,
   handleAmount,
   addProduct,
   cartContent,
+  deleteProduct,
 }) {
   const amount = useContext(Amount);
   const drawerWidth = 240;
@@ -36,7 +39,6 @@ export default function NavMenu({
     Home: "/",
     Shop: "shop",
   };
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -51,30 +53,7 @@ export default function NavMenu({
     }
     setCartOpen(!cartOpen);
   };
-  const mobileMenu = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Cool-Store
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton
-              sx={{
-                justifyContent: "center",
-                a: sxLink,
-              }}
-            >
-              <Link to={linkTargets[item]}>
-                <ListItemText primary={item} />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
   return (
@@ -133,7 +112,7 @@ export default function NavMenu({
                     <Drawer
                       anchor="right"
                       open={cartOpen}
-                      onClose={toggleCart()}
+                      onClose={() => toggleCart()}
                       sx={{
                         "& .MuiDrawer-paper": {
                           boxSizing: "border-box",
@@ -141,7 +120,10 @@ export default function NavMenu({
                         },
                       }}
                     >
-                      <ShoppingCart products={cartContent} />
+                      <ShoppingCart
+                        products={cartContent}
+                        deleteProduct={deleteProduct}
+                      />
                     </Drawer>
                   </Button>
                 </Badge>
@@ -167,7 +149,7 @@ export default function NavMenu({
               },
             }}
           >
-            {mobileMenu}
+            <MobileMenu handleDrawerToggle={handleDrawerToggle} />
           </Drawer>
         </Box>
       </Box>

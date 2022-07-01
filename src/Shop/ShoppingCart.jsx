@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function ShoppingCart({ products }) {
+export default function ShoppingCart({ products, deleteProduct }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -53,7 +53,11 @@ export default function ShoppingCart({ products }) {
                 <TableCell sx={{ width: "10%" }}>{1}</TableCell>
                 <TableCell sx={{ width: "20%" }}>€ {product.price}</TableCell>
                 <TableCell sx={{ width: "10%" }}>
-                  <IconButton edge="end" aria-label="delete">
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => deleteProduct(product)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
