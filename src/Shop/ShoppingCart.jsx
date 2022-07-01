@@ -1,4 +1,4 @@
-import { Container, textAlign } from "@mui/system";
+import { Container } from "@mui/system";
 import { Button, Typography, IconButton } from "@mui/material";
 import { useState, useEffect } from "react";
 
@@ -8,13 +8,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function ShoppingCart({ products, deleteProduct }) {
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const [productAmount, setProductAmount] = useState(1);
   useEffect(() => {
     let price = 0;
     products.forEach((item) => {
@@ -44,13 +43,13 @@ export default function ShoppingCart({ products, deleteProduct }) {
               <TableRow key={product.id}>
                 <TableCell sx={{ width: "20%" }}>
                   <img
-                    style={{ width: "100%" }}
+                    style={{ width: "80%" }}
                     src={product.image}
                     alt={product.title}
                   />
                 </TableCell>
                 <TableCell sx={{ width: "40%" }}>{product.title}</TableCell>
-                <TableCell sx={{ width: "10%" }}>{1}</TableCell>
+                <TableCell sx={{ width: "10%" }}>{productAmount}</TableCell>
                 <TableCell sx={{ width: "20%" }}>€ {product.price}</TableCell>
                 <TableCell sx={{ width: "10%" }}>
                   <IconButton

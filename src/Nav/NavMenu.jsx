@@ -3,13 +3,8 @@ import { useState, useContext } from "react";
 import {
   AppBar,
   Box,
-  Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Toolbar,
   Typography,
   Button,
@@ -18,7 +13,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, Outlet } from "react-router-dom";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import { sxLink } from "./sxNavStyle";
 import { Amount } from "../Shop/CartAmount";
@@ -43,7 +37,7 @@ export default function NavMenu({
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const [cartOpen, setCartOpen] = useState(false);
+  /*  const [cartOpen, setCartOpen] = useState(false);
   const toggleCart = () => (event) => {
     if (
       event.type === "keydown" &&
@@ -52,6 +46,14 @@ export default function NavMenu({
       return;
     }
     setCartOpen(!cartOpen);
+  }; */
+  const [cartOpen, setCartOpen] = useState(false);
+  const handleCartOpen = () => {
+    setCartOpen(true);
+  };
+
+  const handleCartClose = () => {
+    setCartOpen(false);
   };
 
   const container =
@@ -103,6 +105,19 @@ export default function NavMenu({
               ))}
               {amount !== 0 && (
                 <Badge badgeContent={amount} color="error">
+                  <IconButton
+                    color="inherit"
+                    aria-label="open cart"
+                    edge="end"
+                    onClick={handleCartOpen}
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Badge>
+              )}
+              {/* {amount !== 0 && (
+
+                <Badge badgeContent={amount} color="error">
                   <Button
                     onClick={toggleCart()}
                     sx={{ backgroundColor: "#d3d3d3" }}
@@ -127,11 +142,10 @@ export default function NavMenu({
                     </Drawer>
                   </Button>
                 </Badge>
-              )}
+              )} */}
             </Box>
           </Toolbar>
         </AppBar>
-
         <Box component="nav">
           <Drawer
             container={container}
@@ -149,10 +163,36 @@ export default function NavMenu({
               },
             }}
           >
-            <MobileMenu handleDrawerToggle={handleDrawerToggle} />
+            <MobileMenu
+              handleDrawerToggle={handleDrawerToggle}
+              navItems={navItems}
+              linkTargets={linkTargets}
+            />
           </Drawer>
         </Box>
       </Box>
+      {amount !== 0 && (
+        <Box>
+          <Drawer
+            sx={{
+              width: "100%",
+              flexShrink: 0,
+              "& .MuiDrawer-paper": {
+                width: "100%",
+              },
+            }}
+            variant="persistent"
+            anchor="right"
+            open={cartOpen}
+          >
+            <Button onClick={handleCartClose}>Close Cart</Button>
+            <ShoppingCart
+              products={cartContent}
+              deleteProduct={deleteProduct}
+            />
+          </Drawer>
+        </Box>
+      )}
       <Outlet context={[handleAmount, addProduct]} />
     </>
   );

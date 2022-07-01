@@ -11,13 +11,11 @@ import { Link } from "react-router-dom";
 
 import { sxLink } from "./sxNavStyle";
 
-export default function MobileMenu({ handleDrawerToggle }) {
-  const drawerWidth = 240;
-  const navItems = ["Home", "Shop"];
-  const linkTargets = {
-    Home: "/",
-    Shop: "shop",
-  };
+export default function MobileMenu({
+  handleDrawerToggle,
+  navItems,
+  linkTargets,
+}) {
   return (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
