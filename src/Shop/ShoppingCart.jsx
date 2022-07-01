@@ -1,7 +1,6 @@
 import { Container } from "@mui/system";
 import { Button, Typography, IconButton } from "@mui/material";
 import { useState, useEffect } from "react";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,10 +9,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-export default function ShoppingCart({ products, deleteProduct }) {
+export default function ShoppingCart({ products, deleteProduct, handle }) {
   const [totalPrice, setTotalPrice] = useState(0);
-  const [productAmount, setProductAmount] = useState(1);
+  //const [productAmount, setProductAmount] = useState(1);
   useEffect(() => {
     let price = 0;
     products.forEach((item) => {
@@ -49,7 +50,29 @@ export default function ShoppingCart({ products, deleteProduct }) {
                   />
                 </TableCell>
                 <TableCell sx={{ width: "40%" }}>{product.title}</TableCell>
-                <TableCell sx={{ width: "10%" }}>{productAmount}</TableCell>
+                <TableCell sx={{ width: "10%", textAlign: "center" }}>
+                  {product.amount}
+                  <div style={{ display: "flex", marginTop: 3 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        handle.decrementAmount(product);
+                        handle.changeProduct(product, product.amount);
+                      }}
+                    >
+                      <ChevronLeftIcon />
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        handle.incrementAmount(product);
+                        handle.changeProduct(product, product.amount);
+                      }}
+                    >
+                      <ChevronRightIcon />
+                    </Button>
+                  </div>
+                </TableCell>
                 <TableCell sx={{ width: "20%" }}>€ {product.price}</TableCell>
                 <TableCell sx={{ width: "10%" }}>
                   <IconButton

@@ -2,6 +2,7 @@ import sx from "mui-sx";
 import { Paper, Typography, Button } from "@mui/material";
 
 import { sxFlexColumn } from "./Homepage/sxStyle";
+import { Link } from "react-router-dom";
 
 export default function Header({ headerData }) {
   const backgroundImg = process.env.PUBLIC_URL + `/${headerData.bgImg}`;
@@ -26,13 +27,15 @@ export default function Header({ headerData }) {
         {headerData.headerText}
       </Typography>
       {headerData.haveBtn && (
-        <Button
-          sx={{ m: 4, mx: 0, p: 2 }}
-          variant="contained"
-          endIcon={headerData.btnIcon}
-        >
-          {headerData.btnText}
-        </Button>
+        <Link to="shop" style={{ textDecoration: "none", color: "inherit" }}>
+          <Button
+            sx={{ m: 4, mx: 0, p: 2 }}
+            variant="contained"
+            endIcon={headerData.btnIcon}
+          >
+            {headerData.btnText}
+          </Button>
+        </Link>
       )}
     </Paper>
   );

@@ -25,6 +25,7 @@ export default function NavMenu({
   addProduct,
   cartContent,
   deleteProduct,
+  changeProduct,
 }) {
   const amount = useContext(Amount);
   const drawerWidth = 240;
@@ -189,6 +190,7 @@ export default function NavMenu({
             <ShoppingCart
               products={cartContent}
               deleteProduct={deleteProduct}
+              handle={changeProduct}
             />
           </Drawer>
         </Box>
