@@ -7,7 +7,7 @@ import SingleProduct from "./Shop/SingleProduct";
 
 export default function RouteSwitch() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/shopping-cart">
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />

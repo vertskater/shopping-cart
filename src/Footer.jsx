@@ -20,7 +20,6 @@ export default function Footer({ link }) {
         <a href={link} target="_blank" rel="noreferrer">
           Christoph Mitterwallner
         </a>{" "}
-        | A Project from theodinproject.com
       </Typography>
     </footer>
   );
