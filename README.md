@@ -16,7 +16,7 @@ The **Shopping Cart App** is a modern and responsive e-commerce solution built w
 
 ## 🚀 Live Demo
 
-👉 **[Check out the live demo](#)** *(Replace with your live demo URL)*
+👉 **[Check out the live demo](https://shopping-cart-six-lac.vercel.app/)** 
 
 ---
 
